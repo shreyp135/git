@@ -370,4 +370,57 @@ test_expect_success 'log --graph with multiple tips' '
 	EOF
 '
 
+test_expect_success 'log --graph --graph-lane-limit=2 limited to two lanes' '
+	check_graph --graph-lane-limit=2 M_7 <<-\EOF
+	*-.   7_M4
+	|\ \
+	| | * 7_G
+	| | * 7_F
+	| * . 7_E
+	| * . 7_D
+	* | . 7_C
+	| |/
+	|/|
+	* | 7_B
+	|/
+	* 7_A
+	EOF
+'
+
+test_expect_success 'log --graph --graph-lane-limit=3 limited to three lanes' '
+	check_graph --graph-lane-limit=3 M_1 M_3 M_5 M_7 <<-\EOF
+	*   7_M1
+	|\
+	| | *   7_M2
+	| | |\
+	| | | * 7_H
+	| | | . 7_M3
+	| | | . 7_J
+	| | | . 7_I
+	| | | . 7_M4
+	| |_|_.
+	|/| | .
+	| | |_.
+	| |/| .
+	| | | .
+	| | |/.
+	| | * . 7_G
+	| | | .
+	| | |/.
+	| | * . 7_F
+	| * | . 7_E
+	| | |/.
+	| |/| .
+	| * | . 7_D
+	| | |/
+	| |/|
+	* | | 7_C
+	| |/
+	|/|
+	* | 7_B
+	|/
+	* 7_A
+	EOF
+'
+
 test_done
